@@ -5,22 +5,52 @@
 		<script type="text/javascript" src="jquery-3.0.0.min.js"></script>
 		<script type="text/javascript" src="server_list.js"></script>
 		<style type="text/css">
+
 			#container {
-				/*width:200px;*/
+				min-width:300px;
 			}
 			#container a {
-				font-size: 13pt;
-				color:#f30;
 				text-decoration: none;
+			}
+			#container a.external {
+				font-size: 9pt;
+				color:black;
+
+				float: right;
+			}
+			#container a.external:hover {
+				font-size: 9pt;
+				color:#f30;
+
+				float: right;
+			}
+			#container a.internal {
+				font-size: 11pt;
+				font-weight: bold;
+				color:#f30;
+				text-transform: uppercase;
 			}
 			#container ul {
 				list-style-type: none;
 				margin:5px;
 				padding:0;
+
+				border-bottom:1px dotted #555;
+			}
+			#container ul:last-child {
+				border-bottom: none;
 			}
 			#container ul li {
 				padding:5px 0;
+				margin-right:8px;
+				position: relative;
 				/*border-bottom:1px dotted #eee;*/
+			}
+			#container li a[target='_blank']:after {
+				position: absolute;
+				top: -1px;
+				right:-8px;
+				content: '\29C9';
 			}
 			#container div {
 				color:#ccc;

@@ -1,6 +1,6 @@
 {
 	"name" : "JITR",
-	"version" : "0.2.0",
+	"version" : "0.2.2",
 	"description" : "Provides JITR shortcuts",
 	"permissions" : ["contextMenus", "tabs"],
 	"icons" : {

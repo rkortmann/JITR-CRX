@@ -24,6 +24,13 @@ var staging_servers = [
 	}
 ];
 
+var dev_servers = [
+	{
+		'name' : 'Development (Local)',
+		'server' : 'dev.jitr',
+	}
+];
+
 function buildServerList(servers) {
 	var list = document.createElement('ul');
 
@@ -32,8 +39,15 @@ function buildServerList(servers) {
 
 		var li = document.createElement('li');
 		var a = document.createElement('a');
+		a.setAttribute('class', 'internal');
 		a.setAttribute('href', '#');
 		a.appendChild(document.createTextNode(server.name));
+
+		var external_a = document.createElement('a');
+		external_a.setAttribute('class', 'external');
+		external_a.appendChild(document.createTextNode('new tab'));
+		setUrlExternal(external_a, server);
+
 		(function(s) {
 			$(a).click(function() {
 				serverRedirect(s);
@@ -41,8 +55,9 @@ function buildServerList(servers) {
 		})(server.server);
 
 		var div = document.createElement('div');
-		attachNewUrl(div, server);
+		setUrlText(div, server);
 
+		li.appendChild(external_a);
 		li.appendChild(a);
 		li.appendChild(div);
 		list.appendChild(li);
@@ -66,7 +81,20 @@ function serverRedirect(server) {
 	});
 }
 
-function attachNewUrl(element, server) {
+function setUrlText(element, server) {
+	chrome.tabs.query({'active': true, 'currentWindow': true}, function (tabs) {
+		if(tabs.length) {
+			var url = tabs[0].url;
+
+			var parsed_url = parseUrl(url);
+			var new_url = parsed_url.protocol + '://' + server.server + '.jackthreads.com';
+
+			$(element).text(new_url);
+		}
+	});
+}
+
+function setUrlExternal(element, server) {
 	chrome.tabs.query({'active': true, 'currentWindow': true}, function (tabs) {
 		if(tabs.length) {
 			var url = tabs[0].url;
@@ -74,7 +102,8 @@ function attachNewUrl(element, server) {
 			var parsed_url = parseUrl(url);
 			var new_url = parsed_url.protocol + '://' + server.server + parsed_url.path;
 
-			$(element).text(new_url);
+			$(element).attr('href', new_url);
+			$(element).attr('target', '_blank');
 		}
 	});
 }
@@ -100,6 +129,7 @@ function parseUrl(url) {
 function reset() {
 	buildServerList(production_servers);
 	buildServerList(staging_servers);
+	buildServerList(dev_servers);
 }
 
 
