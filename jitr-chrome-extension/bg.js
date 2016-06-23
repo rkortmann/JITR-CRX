@@ -1,35 +1,22 @@
-var context = "selection";
-
-// By Order
 chrome.runtime.onInstalled.addListener(function() {
-	var title = "Caesar Order #%s";
+	var contexts = [ "selection" ];
 
-	var id = chrome.contextMenus.create({
+	var selection_order = chrome.contextMenus.create({
 		"id" : "selection_order",
-		"title" : title,
-		"contexts" : [ context ]
+		"title" : "Caesar Order #%s",
+		"contexts" : contexts
 	});
-});
 
-// By User
-chrome.runtime.onInstalled.addListener(function() {
-	var title = "Caesar User %s";
-
-	var id = chrome.contextMenus.create({
+	var selection_user = chrome.contextMenus.create({
 		"id" : "selection_user",
-		"title" : title,
-		"contexts" : [ context ]
+		"title" : "Caesar User %s",
+		"contexts" : contexts
 	});
-});
 
-// By Tryout
-chrome.runtime.onInstalled.addListener(function() {
-	var title = "Tryout #%s";
-
-	var id = chrome.contextMenus.create({
-		"id" : "selection_tryout",
-		"title" : title,
-		"contexts" : [ context ]
+	var selection_tryout = chrome.contextMenus.create({
+			"id" : "selection_tryout",
+			"title" : "Tryout #%s",
+			"contexts" : contexts
 	});
 });
 
