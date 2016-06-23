@@ -1,3 +1,4 @@
+// Create context menus
 chrome.runtime.onInstalled.addListener(function() {
 	var contexts = [ "selection" ];
 
@@ -20,8 +21,8 @@ chrome.runtime.onInstalled.addListener(function() {
 	});
 });
 
-// Listeners for all
-chrome.contextMenus.onClicked.addListener(function(info, tab) {
+// Listeners for Context Menus
+var contextListeners = function(info, tab) {
 	console.log(info);
 	console.log(tab);
 
@@ -46,4 +47,24 @@ chrome.contextMenus.onClicked.addListener(function(info, tab) {
 	}
 
 	window.open(url, '_blank');
-});
+}
+
+chrome.contextMenus.onClicked.addListener(contextListeners);
+
+// Page Action (staging servers)
+var pageActions = function(tabId, changeInfo, tab) {
+	console.log(tabId);
+	console.log(changeInfo);
+	console.log(tab);
+
+	var url = tab.url;
+
+	// Only show for *.jackthreads.com that is not www.jackthreads.com
+	if(url.indexOf('.jackthreads.com') != -1) {
+		if(url.indexOf('www.jackthreads.com') == -1) {
+			chrome.pageAction.show(tabId);
+		}
+	}
+}
+
+chrome.tabs.onUpdated.addListener(pageActions);

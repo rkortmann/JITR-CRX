@@ -2,7 +2,7 @@
 	"name" : "JITR",
 	"version" : "0.1",
 	"description" : "Provides JITR shortcuts",
-	"permissions" : ["contextMenus"],
+	"permissions" : ["contextMenus", "tabs"],
 	"icons" : {
 		"16" : "logo_16.png",
 		"48" : "logo_48.png",
@@ -10,7 +10,15 @@
 	},
 	"background" : {
 		"persistent" : false,
-		"scripts" : ["bg.js"]
+		"scripts" : ["jquery-3.0.0.min.js", "bg.js"]
+	},
+	"page_action" : {
+		"default_icon" : {
+			"19" : "logo_19.png",
+			"38" : "logo_38.png"
+		},
+		"default_title" : "JITR Server",
+		"default_popup" : "server_list.html"
 	},
 	"manifest_version" : 2
 }
